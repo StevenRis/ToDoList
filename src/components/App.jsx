@@ -1,37 +1,46 @@
-import React, { useState } from "react";
-import ToDoItem from "./ToDoItem";
-import InputArea from "./InputArea";
+import React, { useState } from 'react';
+import ToDoItem from './ToDoItem';
+import InputArea from './InputArea';
+import getDate from './Date';
 
 function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([
+    { item: 'Check my CV', id: 'g1' },
+    { item: 'Check my portfolio', id: 'g2' },
+    { item: 'Check my code', id: 'g3' },
+    { item: 'Hire me!', id: 'g4' },
+    { item: 'You will not regret!', id: 'g5' },
+  ]);
 
   function addItem(inputText) {
     setItems((prevItems) => {
-      return [...prevItems, inputText];
+      const updatedItems = [...prevItems];
+      updatedItems.push({ item: inputText, id: Math.random().toString() });
+      return updatedItems;
     });
   }
 
   function deleteItem(id) {
     setItems((prevItems) => {
-      return prevItems.filter((item, index) => {
-        return index !== id;
-      });
+      const updatedItems = prevItems.filter((item) => item.id !== id);
+      return updatedItems;
     });
   }
 
   return (
-    <div className="container">
-      <div className="heading">
+    <div className='container'>
+      <div className='heading'>
         <h1>To-Do List</h1>
       </div>
+      <h3>{getDate()}</h3>
       <InputArea onAdd={addItem} />
       <div>
         <ul>
-          {items.map((todoItem, index) => (
+          {items.map((todoItem) => (
             <ToDoItem
-              key={index}
-              id={index}
-              text={todoItem}
+              key={todoItem.id}
+              id={todoItem.id}
+              text={todoItem.item}
               onChecked={deleteItem}
             />
           ))}

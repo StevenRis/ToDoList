@@ -1,15 +1,22 @@
-import React from "react";
+import React from 'react';
 
-function ToDoItem(props) {
+import Wrapper from './Helper/Helper';
+
+const ToDoItem = (props) => {
+  const deleteHandler = () => {
+    props.onChecked(props.id);
+  };
+
   return (
-    <div
-      onClick={() => {
-        props.onChecked(props.id);
-      }}
-    >
-      <li>{props.text}</li>
-    </div>
+    <Wrapper>
+      <li>
+        {props.text}{' '}
+        <span className='deleteItem' onClick={deleteHandler}>
+          X
+        </span>
+      </li>
+    </Wrapper>
   );
-}
+};
 
 export default ToDoItem;
